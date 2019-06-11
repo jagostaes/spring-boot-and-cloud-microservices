@@ -1,5 +1,6 @@
 package be.jagostaes.app.ws.mobileappws.ui.controller;
 
+import be.jagostaes.app.ws.mobileappws.exceptions.UserServiceException;
 import be.jagostaes.app.ws.mobileappws.ui.model.request.UpdateUserRequestModel;
 import be.jagostaes.app.ws.mobileappws.ui.model.request.UserDetailsRequestModel;
 import be.jagostaes.app.ws.mobileappws.ui.model.response.UserRest;
@@ -33,10 +34,7 @@ public class UserController {
                     } )
     public ResponseEntity<UserRest> getUser(@PathVariable String userId){
 
-        //
-        String firstName = null;
-        int firstNameLength = firstName.length();
-        //
+        if (true) throw new UserServiceException("A user service exception is thrown");
 
         if (users.containsKey(userId)){
             return new ResponseEntity<UserRest>(users.get(userId), HttpStatus.OK);
