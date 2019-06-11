@@ -1,5 +1,6 @@
 package be.jagostaes.app.ws.mobileappws.ui.controller;
 
+import be.jagostaes.app.ws.mobileappws.ui.model.request.UserDetailsRequestModel;
 import be.jagostaes.app.ws.mobileappws.ui.model.response.UserRest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -31,9 +32,22 @@ public class UserController {
         return new ResponseEntity<UserRest>(returnValue, HttpStatus.OK);
     }
 
-    @PostMapping
-    public String createUser(){
-        return "create user was called";
+    @PostMapping(
+            consumes = {
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE
+            },
+            produces = {
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE
+                    } )
+    public ResponseEntity<UserRest> createUser(@RequestBody UserDetailsRequestModel userDetails){
+        UserRest returnValue = new UserRest();
+        returnValue.setFirstname(userDetails.getFirstName());
+        returnValue.setLastname(userDetails.getLastName());
+        returnValue.setEmail(userDetails.getEmail());
+
+        return new ResponseEntity<UserRest>(returnValue, HttpStatus.OK);
     }
 
     @PutMapping
