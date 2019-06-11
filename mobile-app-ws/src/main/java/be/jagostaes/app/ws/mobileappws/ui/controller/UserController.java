@@ -1,5 +1,6 @@
 package be.jagostaes.app.ws.mobileappws.ui.controller;
 
+import be.jagostaes.app.ws.mobileappws.ui.model.request.UpdateUserRequestModel;
 import be.jagostaes.app.ws.mobileappws.ui.model.request.UserDetailsRequestModel;
 import be.jagostaes.app.ws.mobileappws.ui.model.response.UserRest;
 import org.springframework.http.HttpStatus;
@@ -63,9 +64,23 @@ public class UserController {
         return new ResponseEntity<UserRest>(returnValue, HttpStatus.OK);
     }
 
-    @PutMapping
-    public String updateUser(){
-        return "update user was called";
+    @PutMapping(path = "/{userId}",
+            consumes = {
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE
+            },
+            produces = {
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE
+                    } )
+    public UserRest updateUser(@PathVariable String userId, @Valid @RequestBody UpdateUserRequestModel userDetails){
+
+        UserRest storedUserDetails = users.get(userId);
+        storedUserDetails.setFirstname(userDetails.getFirstName());
+        storedUserDetails.setLastname(userDetails.getLastName());
+
+        users.put(userId, storedUserDetails);
+        return storedUserDetails;
     }
 
     @DeleteMapping
