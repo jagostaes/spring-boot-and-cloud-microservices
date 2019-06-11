@@ -1,10 +1,10 @@
 package be.jagostaes.app.ws.mobileappws.ui.controller;
 
 import be.jagostaes.app.ws.mobileappws.ui.model.response.UserRest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.awt.*;
 
 @RestController
 @RequestMapping("users") // http://localhost:8080/users
@@ -22,13 +22,13 @@ public class UserController {
                     MediaType.APPLICATION_XML_VALUE,
                     MediaType.APPLICATION_JSON_VALUE
                     } )
-    public UserRest getUser(@PathVariable String userId){
+    public ResponseEntity<UserRest> getUser(@PathVariable String userId){
         UserRest returnValue = new UserRest();
         returnValue.setFirstname("Jago");
         returnValue.setLastname("Staes");
         returnValue.setEmail("jago.staes@gmail.com");
 
-        return returnValue;
+        return new ResponseEntity<UserRest>(returnValue, HttpStatus.OK);
     }
 
     @PostMapping
