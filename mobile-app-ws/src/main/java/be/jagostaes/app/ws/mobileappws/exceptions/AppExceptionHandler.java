@@ -18,9 +18,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleAnyException(Exception ex, WebRequest request){
 
         String errorMessageDescription = ex.getLocalizedMessage();
-
         if (errorMessageDescription == null) errorMessageDescription = ex.toString();
-
         ErrorMessage errorMessage = new ErrorMessage(new Date(), errorMessageDescription);
 
         return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -30,9 +28,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleSpecificExceptions(RuntimeException ex, WebRequest request){
 
         String errorMessageDescription = ex.getLocalizedMessage();
-
         if (errorMessageDescription == null) errorMessageDescription = ex.toString();
-
         ErrorMessage errorMessage = new ErrorMessage(new Date(), errorMessageDescription);
 
         return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
