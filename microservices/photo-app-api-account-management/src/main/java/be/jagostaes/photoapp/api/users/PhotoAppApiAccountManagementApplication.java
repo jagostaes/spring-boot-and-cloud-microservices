@@ -1,4 +1,4 @@
-package be.jagostaes.photoapp.api.account;
+package be.jagostaes.photoapp.api.users;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

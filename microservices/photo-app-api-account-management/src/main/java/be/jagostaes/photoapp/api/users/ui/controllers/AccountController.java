@@ -1,4 +1,4 @@
-package be.jagostaes.photoapp.api.account.ui.controllers;
+package be.jagostaes.photoapp.api.users.ui.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

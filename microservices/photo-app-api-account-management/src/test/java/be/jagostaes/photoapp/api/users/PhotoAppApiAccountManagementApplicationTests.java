@@ -1,4 +1,4 @@
-package be.jagostaes.photoapp.api.account;
+package be.jagostaes.photoapp.api.users;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
