@@ -1,10 +1,10 @@
-package be.jagostaes.photoapp.api.users.shared;
+package be.jagostaes.photoapp.api.users.users.shared;
 
 import java.io.Serializable;
 
 public class UserDto implements Serializable {
 
-    private static final long serialVersionUID = 1903251350951379052L;
+    private static final long serialVersionUID = -5784275874839521699L;
     private String firstName;
     private String lastName;
     private String email;
