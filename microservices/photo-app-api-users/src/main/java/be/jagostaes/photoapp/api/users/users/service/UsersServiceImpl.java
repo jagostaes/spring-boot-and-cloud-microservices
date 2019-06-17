@@ -3,9 +3,11 @@ package be.jagostaes.photoapp.api.users.users.service;
 import be.jagostaes.photoapp.api.users.users.data.UserEntity;
 import be.jagostaes.photoapp.api.users.users.data.UsersRepository;
 import be.jagostaes.photoapp.api.users.users.shared.UserDto;
+import com.netflix.discovery.converters.Auto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -13,22 +15,24 @@ import java.util.UUID;
 @Service
 public class UsersServiceImpl implements UsersService {
 
-    @Autowired
     UsersRepository usersRepository;
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UsersServiceImpl(UsersRepository usersRepository) {
+    @Autowired
+    public UsersServiceImpl(UsersRepository usersRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.usersRepository = usersRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
     public UserDto createUser(UserDto userDetails) {
 
         userDetails.setUserId(UUID.randomUUID().toString());
+        userDetails.setEncryptedPassword(bCryptPasswordEncoder.encode(userDetails.getPassword()));
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         UserEntity userEntity = modelMapper.map(userDetails, UserEntity.class);
-        userEntity.setEncryptedPassword("test");
 
         usersRepository.save(userEntity);
 
