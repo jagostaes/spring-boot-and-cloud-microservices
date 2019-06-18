@@ -30,13 +30,16 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();      // disable cross site request forgery
-        http.authorizeRequests().antMatchers("/**").hasIpAddress(environment.getProperty("gateway.ip")).and().addFilter(getAuthenticationFilter());
+        http.authorizeRequests().antMatchers("/**").hasIpAddress(environment.getProperty("gateway.ip"))
+                .and()
+                .addFilter(getAuthenticationFilter());
         http.headers().frameOptions().disable();        //for h2 console
     }
 
     private AuthenticationFilter getAuthenticationFilter() throws Exception {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(usersService, environment, authenticationManager());
 //        authenticationFilter.setAuthenticationManager(authenticationManager());
+        authenticationFilter.setFilterProcessesUrl(environment.getProperty("login.url.path"));
         return authenticationFilter;
     }
 
