@@ -11,5 +11,5 @@ public class PhotoAppDiscoveryApplication {
     public static void main(String[] args) {
         SpringApplication.run(PhotoAppDiscoveryApplication.class, args);
     }
- // signed commit test
+
 }
